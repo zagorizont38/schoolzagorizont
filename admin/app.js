@@ -751,6 +751,11 @@ async function doPublish(message, force = false) {
     }
     for (const path of st.deletions) files.push({ path, delete: true });
     files.push({ path: CONTENT, text: JSON.stringify(st.content, null, 2) + '\n' });
+    // Готовые страницы кладём в репозиторий вместе с контентом: сайт обновится, даже если сборка на GitHub Actions не настроена
+    try {
+      const built = renderSite(st.content, { css: st.css, js: st.js, base: '' });
+      for (const [name, text] of Object.entries(built)) files.push({ path: name, text });
+    } catch (e) { throw new Error('Не удалось собрать страницы сайта: ' + e.message); }
     st.publishing = 'Сохраняю в GitHub…'; updateStatus();
     let sha;
     try {
