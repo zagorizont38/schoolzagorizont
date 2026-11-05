@@ -1,0 +1,13 @@
+{
+  "name": "zagorizont38",
+  "private": true,
+  "description": "Сайт частной начальной школы «За горизонт» с админкой на GitHub API",
+  "type": "module",
+  "scripts": {
+    "build": "node tools/build.mjs",
+    "serve": "node tools/build.mjs && npx --yes serve _site"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}
